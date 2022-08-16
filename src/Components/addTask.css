@@ -11,3 +11,8 @@
 .submitbtn{
     margin-top: 13px!important;
 }
+
+.table{
+    align-items: center;
+    padding-right: 10rem;
+}
