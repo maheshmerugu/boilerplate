@@ -1,6 +1,35 @@
 import React, { Component } from 'react';
 import './addTask.css'
+import axios from 'axios';
 class AddTask extends Component {
+
+    constructor(){
+        super()
+
+        this.state={
+            'task':''
+        }
+    }
+
+    submit=(e)=>{
+        e.preventDefault();
+
+        axios({
+            method: 'post',
+            url: 'https://62fb8073abd610251c0a6411.mockapi.io/v1/todos',
+            data: {
+           task:this.state.task,
+            }
+          }).then(res => {
+           alert(res);
+          })
+
+    }
+
+    handlechange=(e)=>{
+
+        this.setState({task:e.target.value})
+    }
     render() {
         return (
 
@@ -13,10 +42,10 @@ class AddTask extends Component {
 
                              <div className='card-body'>
 
-                                <form>
-                                      <input class="form-control form-control-lg" type="text" placeholder="Task" />
+                                <form onSubmit={this.submit}>
+                                      <input className="form-control form-control-lg" type="text" onChange={this.handlechange} placeholder="Task" />
 
-                                      <button className=' form-control btn btn-primary'>Add Task</button>
+                                      <button   className='form-control btn btn-primary submitbtn'>Add Task</button>
 
                                 </form>
 

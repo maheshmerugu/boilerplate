@@ -27,9 +27,7 @@ class App extends Component {
 
                     </li>       
 
-                    <li className="nav-item">
-                      <a className="nav-link active" aria-current="page" href="#">view Todo</a>
-                    </li> 
+                  
                   </ul>
 
 
