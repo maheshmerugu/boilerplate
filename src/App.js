@@ -57,6 +57,9 @@ class App extends Component {
       <Route path="/addtodo" element={<AddTask />} />
       <Route path="/edittodo/:id" element={<EditTask />} />
 
+      <Route path="/delete/:id" element={<TasksList />}/>
+
+
 
     </Routes>
   </BrowserRouter>

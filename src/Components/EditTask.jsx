@@ -58,7 +58,7 @@ export default class EditTask extends Component {
 
            if(res.status == '200'){
 
-            toast.success('Task updated Successfully!', {
+            toast.info('Task updated Successfully!', {
                 position: toast.POSITION.TOP_RIGHT
             });
 

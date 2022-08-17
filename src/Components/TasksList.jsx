@@ -5,6 +5,10 @@
 import AddTask from './AddTask'
 import EditTask from './EditTask'
 
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
     
     export default class TasksList extends Component {
 
@@ -17,7 +21,14 @@ import EditTask from './EditTask'
 
             }
         }
-
+loadtodos(){
+  axios.get(`https://62fb8073abd610251c0a6411.mockapi.io/v1/todos`)
+  .then(res => {
+    console.log(res.data);
+    const tasksList = res.data;
+    this.setState({ tasksList });
+  })
+}
 
         componentDidMount() {
           axios.get(`https://62fb8073abd610251c0a6411.mockapi.io/v1/todos`)
@@ -31,10 +42,33 @@ import EditTask from './EditTask'
         editClick=(e)=>{
 
          this.setState({edit_id:e.target.value});
+        }
 
-         <EditTask props = {this.state.edit_id}/>             
 
-         
+        deleteTask=(e)=>{
+
+          const pathname = window.location.pathname;
+          const delete_id = pathname.substring(pathname.lastIndexOf('/') + 1);
+
+          axios.delete(`https://62fb8073abd610251c0a6411.mockapi.io/v1/todos/${delete_id}`)
+          .then(res => {
+            console.log(res.status);
+
+            if(res.status == '200'){
+
+
+              toast.error('Task Deleted Successfully!', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+
+            this.loadtodos();
+
+
+
+            }
+          
+          })
+
         }
       
       
@@ -57,6 +91,7 @@ import EditTask from './EditTask'
                         <th>S.no</th>
                         <th>Task</th>
                         <th>Actions</th>
+                        <th>Created at</th>
 
                        
                       </tr>
@@ -67,11 +102,13 @@ import EditTask from './EditTask'
                             <td key={task.id}>{task.id}</td>
                             <td>{task.task}</td>
                             <td >
-                            <Link to={`/edittodo/${task.id}`}  params={{ testvalue: "hello" }} onClick={this.editClick} class="btn btn-primary">Edit</Link>
+                            <Link to={`/edittodo/${task.id}`}   onClick={this.editClick} class="btn btn-primary">Edit</Link>
 
-
-                              <button className="btn btn-danger">Delete</button>
+                            <Link to={`/delete/${task.id}`}   onClick={this.deleteTask} class="btn btn-danger">Delete</Link>
                             </td>
+
+                            <td>{task.createdAt}</td>
+
 
                             </tr>
                             ))}
@@ -86,6 +123,8 @@ import EditTask from './EditTask'
                 </div>
 
             </div>
+            <ToastContainer />
+
 
           </div>
         )
