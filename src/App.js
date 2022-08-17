@@ -6,6 +6,8 @@ import {
 } from "react-router-dom";
 import AddTask from './Components/AddTask';
 import TasksList from './Components/TasksList';
+import editTask from './Components/EditTask';
+import EditTask from './Components/EditTask';
 
 const bgColors = { "Default": "#81b71a",
                     "Blue": "#e3f2fd",
@@ -53,6 +55,8 @@ class App extends Component {
     <Routes>
       <Route path="/" element={<TasksList />} />
       <Route path="/addtodo" element={<AddTask />} />
+      <Route path="/edittodo/:id" element={<EditTask />} />
+
 
     </Routes>
   </BrowserRouter>

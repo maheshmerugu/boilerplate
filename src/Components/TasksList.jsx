@@ -1,14 +1,19 @@
     import React, { Component } from 'react'
     import './addTask.css'
     import axios from 'axios'
+    import {Link} from 'react-router-dom'
+import AddTask from './AddTask'
+import EditTask from './EditTask'
+
     
     export default class TasksList extends Component {
 
-        constructor(){
-            super()
+        constructor(props){
+            super(props)
 
             this.state={
                 tasksList:[],
+                edit_id:'',
 
             }
         }
@@ -22,6 +27,15 @@
               this.setState({ tasksList });
             })
         }
+
+        editClick=(e)=>{
+
+         this.setState({edit_id:e.target.value});
+
+         <EditTask props = {this.state.edit_id}/>             
+
+         
+        }
       
       
 
@@ -32,6 +46,8 @@
             <div className='card'>
                 <div className='card-title'>
                     <h3 className='task'>Tasks List</h3>
+
+
 
                     <div className='card-body'>
 
@@ -51,7 +67,9 @@
                             <td key={task.id}>{task.id}</td>
                             <td>{task.task}</td>
                             <td >
-                              <button className="btn btn-primary">Edit</button>
+                            <Link to={`/edittodo/${task.id}`}  params={{ testvalue: "hello" }} onClick={this.editClick} class="btn btn-primary">Edit</Link>
+
+
                               <button className="btn btn-danger">Delete</button>
                             </td>
 

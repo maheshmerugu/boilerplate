@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import './addTask.css'
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 class AddTask extends Component {
 
     constructor(){
@@ -21,7 +25,18 @@ class AddTask extends Component {
            task:this.state.task,
             }
           }).then(res => {
-           alert(res);
+           console.log(res.status);
+
+           if(res.status == '201'){
+
+            toast.success('Task Added Successfully!', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+
+           }
+          
+          }).catch(function (error) {
+            console.log(error);
           })
 
     }
@@ -52,6 +67,9 @@ class AddTask extends Component {
                              </div>
                 
                 </div>
+
+                <ToastContainer />
+
 
             </div>
            
